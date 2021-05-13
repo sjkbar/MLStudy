@@ -21,11 +21,16 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
-
-
-
-
+for iter=1:size(X,1)
+    x = X(iter, :);
+    dists = zeros(size(centroids), 1);
+    for iDist=1:size(centroids, 1)
+        temp = x - centroids(iDist,:);
+        dists(iDist, :) = temp * temp';
+    end
+    [v, centroid] = min(dists);
+    idx(iter, 1) = centroid;
+end
 
 % =============================================================
 

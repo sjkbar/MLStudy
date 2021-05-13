@@ -23,11 +23,21 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+candidates = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
+iteration = size(candidates)(2)
+result = eye(iteration, iteration);
+for i = 1:iteration
+    for j = 1:iteration
+        model = svmTrain(X, y, candidates(i), @(x1, x2) gaussianKernel(x1, x2, candidates(j)));
+        predictionCv = svmPredict(model, Xval);
+        result(i,j) = mean(double(predictionCv ~= yval));
+    end;
+end;
+[minVals, minRowIndexes] = min(result);
+[minVal, minColumnIndex] = min(minVals);
 
-
-
-
-
+C = candidates(minRowIndexes(minColumnIndex));
+sigma = candidates(minColumnIndex);
 
 % =========================================================================
 

@@ -22,5 +22,9 @@ sim = 0;
 
 
 % =============================================================
-    
+
+diff = x1 -x2    ;
+diffSquare = diff.^2;
+sumDiffSquare = sum(diffSquare);
+sim = exp(- sumDiffSquare / (2 * sigma^2));
 end
